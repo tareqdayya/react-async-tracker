@@ -1,13 +1,24 @@
 {
   "name": "@tareqdayya/with-async-request",
   "version": "0.1.0",
+  "description": "react wrapper (HOC) for tracking the status of async requests.",
+  "main": "./dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "rm -rf dist && mkdir dist && webpack -p --mode=production",
+    "watch": "webpack -w --mode=development"
+  },
   "peerDependencies": {
     "react": "^16.12.0"
+  },
+  "dependencies": {
+    "hoist-non-react-statics": "^3.3.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "@types/hoist-non-react-statics": "^3.3.1",
     "@types/jest": "^24.0.0",
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
@@ -15,13 +26,10 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "3.3.0",
-    "typescript": "~3.7.2"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.4",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -35,7 +43,11 @@
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
-      "last 1 safari version"
+      "last 1 safari version",
+      "last 1 opera version",
+      "last 1 ie version",
+      "last 1 edge version",
+      "last 1 iOS version"
     ]
   },
   "repository": {
