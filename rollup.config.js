@@ -8,6 +8,7 @@ import url from 'rollup-plugin-url'
 import svgr from '@svgr/rollup'
 
 import pkg from './package.json'
+import { terser } from 'rollup-plugin-terser';
 
 export default {
   input: 'src/index.tsx',
@@ -16,14 +17,14 @@ export default {
       file: pkg.main,
       format: 'cjs',
       exports: 'named',
-      sourcemap: true
+      sourcemap: false
     },
-    {
-      file: pkg.module,
-      format: 'es',
-      exports: 'named',
-      sourcemap: true
-    }
+    /* {
+       file: pkg.module,
+       format: 'es',
+       exports: 'named',
+       sourcemap: false
+     }*/
   ],
   plugins: [
     external(),
@@ -37,6 +38,7 @@ export default {
       rollupCommonJSResolveHack: true,
       clean: true
     }),
-    commonjs()
+    commonjs(),
+    terser(),
   ]
 }
