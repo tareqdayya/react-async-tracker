@@ -9,6 +9,10 @@ const escortAsync: EscortAsyncWrapper = (WrappedComponent, config?: any) => {
   class EscortAsync extends Component<any, EscortAsyncState> {
     static displayName: string;
 
+    componentDidMount(): void {
+      this.fetchStatus('myRequest');
+    }
+
     constructor(props: any) {
       super(props);
       this.state = {
@@ -17,16 +21,22 @@ const escortAsync: EscortAsyncWrapper = (WrappedComponent, config?: any) => {
       this.makeRequest = this.makeRequest.bind(this);
       this.isNotActive = this.isNotActive.bind(this);
       this.isActive = this.isActive.bind(this);
+      this.fetchStatus = this.fetchStatus.bind(this);
     }
 
     isNotActive(requestName: string) {
-      const {fetchStatus} = this.state;
+      const { fetchStatus } = this.state;
       return fetchStatus[requestName] === FETCH_STATUS.NO_REQUEST;
     }
 
     isActive(requestName: string) {
-      const {fetchStatus} = this.state;
+      const { fetchStatus } = this.state;
       return fetchStatus[requestName] === FETCH_STATUS.PENDING;
+    }
+
+    fetchStatus(requestName: string) {
+      // return the fetchStatus state variable, thus rendering the state var private!
+      return this.state.fetchStatus[requestName];
     }
 
     async makeRequest(
@@ -66,11 +76,11 @@ const escortAsync: EscortAsyncWrapper = (WrappedComponent, config?: any) => {
     }
 
     render() {
-      const { fetchStatus } = this.state;
+      // const { fetchStatus } = this.state;
 
       const escort: EscortPropTypes = {
         makeRequest: this.makeRequest,
-        fetchStatus,
+        fetchStatus: this.fetchStatus,
       };
 
       return (

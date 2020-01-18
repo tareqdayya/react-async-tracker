@@ -1,13 +1,11 @@
-function generateErrorType(name: string, message: string) {
-  const err = new Error();
-  err.name = name;
-  err.message = message;
+class AppError extends Error {
+  status: number | undefined;
 
-  return err;
+  constructor(name: string, message: string, status?: number) {
+    super();
+    this.name = name;
+    this.message = message;
+    if (status) this.status = status;
+  }
 }
 
-export const REQUEST_NAME_ERROR = generateErrorType(
-  'REQUEST_NAME_ERROR',
-  `Are You Sure You Have Sent A Request
-  With Said Name? async tracker Doesn't Seem To Be Able To Find It.`
-);

@@ -18,8 +18,8 @@ class App extends Component {
     const { escort } = this.props;
     return (
       <div style={{ margin: 30 }}>
-        <h1>This is escorted App!</h1>
-        <h5>{escort.fetchStatus['myRequest']}</h5>
+        <h1>This is an escorted App!</h1>
+        <h5>{escort.fetchStatus('myRequest')}</h5>
       </div>
     )
   }
