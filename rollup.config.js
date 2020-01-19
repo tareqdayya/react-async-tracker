@@ -39,6 +39,6 @@ export default {
       clean: true
     }),
     commonjs(),
-    terser(),
+    (process.env.NODE_ENV === 'production' && terser()),
   ]
 }

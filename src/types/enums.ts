@@ -1,6 +1,6 @@
 export enum FETCH_STATUS {
-  'NO_REQUEST' ,
- 'PENDING' ,
- 'SUCCESS' ,
- 'FAILURE'
+  'INACTIVE',
+  'ACTIVE' = 1,
+  'SUCCESS',
+  'FAIL',
 }

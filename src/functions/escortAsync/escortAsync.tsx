@@ -9,29 +9,13 @@ const escortAsync: EscortAsyncWrapper = (WrappedComponent, config?: any) => {
   class EscortAsync extends Component<any, EscortAsyncState> {
     static displayName: string;
 
-    componentDidMount(): void {
-      this.fetchStatus('myRequest');
-    }
-
     constructor(props: any) {
       super(props);
       this.state = {
         fetchStatus: {},
       };
       this.makeRequest = this.makeRequest.bind(this);
-      this.isNotActive = this.isNotActive.bind(this);
-      this.isActive = this.isActive.bind(this);
       this.fetchStatus = this.fetchStatus.bind(this);
-    }
-
-    isNotActive(requestName: string) {
-      const { fetchStatus } = this.state;
-      return fetchStatus[requestName] === FETCH_STATUS.NO_REQUEST;
-    }
-
-    isActive(requestName: string) {
-      const { fetchStatus } = this.state;
-      return fetchStatus[requestName] === FETCH_STATUS.PENDING;
     }
 
     fetchStatus(requestName: string) {
@@ -41,17 +25,30 @@ const escortAsync: EscortAsyncWrapper = (WrappedComponent, config?: any) => {
 
     async makeRequest(
       requestName: string,
-      requestPromise: Promise<any>,
-      isRevertsToInitial?: boolean,
-      revertToInitialTimeoutInMs?: number,
-    ) {
+      request: Promise<any> | Function,
+      revertsToInactive?: boolean,
+      timeoutUntilRevertsToInactiveInMs?: number,
+    ): Promise<any> {
+      /** post stage: POST_FAIL or POST_SUCCESS */
+      // set fetchStatus to active
       this.setState(cur => ({
-        fetchStatus: { ...cur.fetchStatus, [requestName]: FETCH_STATUS.PENDING }
+        fetchStatus: { ...cur.fetchStatus, [requestName]: FETCH_STATUS.ACTIVE }
       }));
+
+      // if a function is passed, we call it to get the promise
+      if (typeof request === 'function') {
+        console.log('recursively calling makeRequest. dont forget to carry all arguments.');
+        return this.makeRequest(
+          requestName,
+          request(),
+          revertsToInactive,
+          timeoutUntilRevertsToInactiveInMs
+        );
+      }
 
       return new Promise((async (resolve, reject) => {
         try {
-          const response = await requestPromise;
+          const response = await request;
 
           this.setState(cur => ({
             fetchStatus: { ...cur.fetchStatus, [requestName]: FETCH_STATUS.SUCCESS }
@@ -60,18 +57,21 @@ const escortAsync: EscortAsyncWrapper = (WrappedComponent, config?: any) => {
         }
         catch (e) {
           this.setState(cur => ({
-            fetchStatus: { ...cur.fetchStatus, [requestName]: FETCH_STATUS.FAILURE }
+            fetchStatus: { ...cur.fetchStatus, [requestName]: FETCH_STATUS.FAIL }
           }));
           reject(e);
         }
 
-        if (isRevertsToInitial === false) return;
+        if (revertsToInactive === false) return;
 
         setTimeout(() => {
           this.setState(cur => ({
-            fetchStatus: { ...cur.fetchStatus, [requestName]: FETCH_STATUS.NO_REQUEST }
+            fetchStatus: {
+              ...cur.fetchStatus,
+              [requestName]: FETCH_STATUS.INACTIVE,
+            }
           }));
-        }, revertToInitialTimeoutInMs ?? 1500);
+        }, timeoutUntilRevertsToInactiveInMs ?? 1500);
       }));
     }
 

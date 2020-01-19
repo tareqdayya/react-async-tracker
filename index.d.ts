@@ -12,3 +12,8 @@ declare namespace escort {
   let fetchStatus: FetchStatusFunction;
 }
 */
+
+import * as enums from './src/types/enums';
+// import * as errors from './src/types/errors';
+import * as interfaces from './src/types/interfaces';
+import * as types from './src/types/types';
