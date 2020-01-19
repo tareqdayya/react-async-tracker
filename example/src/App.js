@@ -35,16 +35,16 @@ class App extends Component {
           }, 1000);
         })
       },
-    ).then(() => {
-      // setTimeout to show the tick before displaying the data
-      setTimeout(() => {
-          this.setState({ data: [
-            { name: 'adam', age: 29},
-            { name: 'sarah', age: 30},
-            { name: 'max', age: 31},
-            ] });
-      }, 500);
-    });
+      undefined,
+      400
+    ).then(() => this.setState({
+        data: [
+          { name: 'adam', age: 29 },
+          { name: 'sarah', age: 30 },
+          { name: 'max', age: 31 },
+        ]
+      })
+    );
   }
 
   render() {
@@ -58,13 +58,14 @@ class App extends Component {
           style={{ flex: 1, alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
           {data && data.length ? (
             <ul>
-              {data.map(user => <li>{user.name} is {user.age} years old.</li>)}
+              {data.map(user => <li key={user.name}>{user.name} is {user.age} years old.</li>)}
             </ul>
           ) : (
             <Fragment>
               <span>{!escort.fetchStatus('myRequest') && (
                 <p>skeleton. or
-                  <button style={{ backgroundColor: 'blue', color: 'white'}} onClick={this.makeARequest}>Fetch Data</button>
+                  <button style={{ backgroundColor: 'blue', color: 'white' }}
+                          onClick={this.makeARequest}>Fetch Data</button>
                 </p>
               )}</span>
               <span>{escort.fetchStatus('myRequest') === FETCH_STATUS.ACTIVE && (

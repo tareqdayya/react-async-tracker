@@ -27,9 +27,10 @@ const escortAsync: EscortAsyncWrapper = (WrappedComponent, config?: any) => {
       requestName: string,
       request: Promise<any> | Function,
       revertsToInactive?: boolean,
-      timeoutUntilRevertsToInactiveInMs?: number,
+      timeoutUntilRevertsToInactiveInMs: number = 1500,
     ): Promise<any> {
       /** post stage: POST_FAIL or POST_SUCCESS */
+
       // set fetchStatus to active
       this.setState(cur => ({
         fetchStatus: { ...cur.fetchStatus, [requestName]: FETCH_STATUS.ACTIVE }
@@ -53,7 +54,11 @@ const escortAsync: EscortAsyncWrapper = (WrappedComponent, config?: any) => {
           this.setState(cur => ({
             fetchStatus: { ...cur.fetchStatus, [requestName]: FETCH_STATUS.SUCCESS }
           }));
-          resolve(response);
+
+          // setTimeout so we can render the success component b4 returning the data
+          setTimeout(() => {
+            resolve(response);
+          }, timeoutUntilRevertsToInactiveInMs);
         }
         catch (e) {
           this.setState(cur => ({
@@ -71,7 +76,7 @@ const escortAsync: EscortAsyncWrapper = (WrappedComponent, config?: any) => {
               [requestName]: FETCH_STATUS.INACTIVE,
             }
           }));
-        }, timeoutUntilRevertsToInactiveInMs ?? 1500);
+        }, timeoutUntilRevertsToInactiveInMs);
       }));
     }
 
