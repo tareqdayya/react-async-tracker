@@ -21,7 +21,12 @@ the user chooses not to revert.
 Users will provide a component, or use the one provided, to display request status. Most of the time 
 they will not be directly interacting with FETCH_STATUS enum. In order to carry out logic after the 
 request resolves or rejects, chain .then(), .catch() and .finally() to escort.makeRequest()
-**Remember**: it's escort.makeRequest() that gets chained and not the request inside it. 
+**Remember**: it's escort.makeRequest() that gets chained and not the request inside it.
+
+pass it a promise, a function that returns a promise (it recursively calls the function to get to
+the promise), or a thunk (just pass the props.dispatch call inside it).
+
+cancelRequests() should be called before unmounting/disappearing a component.
 ```tsx
 import * as React from 'react'
 

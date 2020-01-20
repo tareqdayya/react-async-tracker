@@ -1,6 +1,6 @@
 export enum FETCH_STATUS {
   'INACTIVE',
-  'ACTIVE' = 1,
+  'ACTIVE' ,
   'SUCCESS',
   'FAIL',
 }
