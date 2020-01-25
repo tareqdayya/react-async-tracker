@@ -8,7 +8,7 @@
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
-    "declaration": false,
+    "declaration": true,
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
