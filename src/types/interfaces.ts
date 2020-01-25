@@ -6,3 +6,8 @@ export interface EscortPropTypes {
   fetchStatus: FetchStatusFunction;
   cancelRequests: Function;
 }
+
+export interface AnyProp {
+  escort: EscortPropTypes;
+  [prop: string]: any;
+}

@@ -68,21 +68,21 @@ class Home extends Component {
           ) : (
             <Fragment>
               {/* this is your fetch component */}
-              <span>{!escort.fetchStatus('myRequest') && (
+              <Fragment>{!escort.fetchStatus('myRequest') && (
                 <p>skeleton. or
                   <button style={{ backgroundColor: 'blue', color: 'white' }}
                           onClick={this.fetchData}>Fetch Data</button>
                 </p>
-              )}</span>
-              <span>{escort.fetchStatus('myRequest') === FETCH_STATUS.ACTIVE && (
-                <img src={require('./Spinner-0.5s-108px.svg')} alt="spinner" width={50}/>
-              )}</span>
-              <span>{escort.fetchStatus('myRequest') === FETCH_STATUS.SUCCESS && (
+              )}</Fragment>
+              <Fragment>{escort.fetchStatus('myRequest') === FETCH_STATUS.ACTIVE && (
+                <p>Loading...</p>
+              )}</Fragment>
+              <Fragment>{escort.fetchStatus('myRequest') === FETCH_STATUS.SUCCESS && (
                 <p>✔︎</p>
-              )}</span>
-              <span>{escort.fetchStatus('myRequest') === FETCH_STATUS.FAIL && (
+              )}</Fragment>
+              <Fragment>{escort.fetchStatus('myRequest') === FETCH_STATUS.FAIL && (
                 <p>😔</p>
-              )}</span>
+              )}</Fragment>
             </Fragment>
           )}
         </h3>

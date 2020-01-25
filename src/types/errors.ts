@@ -1,4 +1,4 @@
-class AppError extends Error {
+/*class AppError extends Error {
   status: number | undefined;
 
   constructor(name: string, message: string, status?: number) {
@@ -7,5 +7,7 @@ class AppError extends Error {
     this.message = message;
     if (status) this.status = status;
   }
-}
+}*/
+
+export {};
 

@@ -4,7 +4,10 @@
   "description": "react wrapper (HOC) for tracking the status of async requests.",
   "author": "@tareqdayya",
   "license": "MIT",
-  "repository": "@tareqdayya/react-async-tracker",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tareqdayya/react-async-tracker.git"
+  },
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",

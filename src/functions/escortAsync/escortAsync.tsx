@@ -45,7 +45,7 @@ const escortAsync: EscortAsyncWrapper = (WrappedComponent, config?: any) => {
       // set fetchStatus to active
       if (!this.shouldRequestsReturn) return;
       this.setState(cur => ({
-        fetchStatus: { ...cur.fetchStatus, [requestName]: FETCH_STATUS.ACTIVE }
+        fetchStatus: { ...cur.fetchStatus, [requestName]: FETCH_STATUS.ACTIVE },
       }));
 
       // if a function is passed, we call it to get the promise
@@ -55,7 +55,7 @@ const escortAsync: EscortAsyncWrapper = (WrappedComponent, config?: any) => {
           requestName,
           request(),
           revertsToInactive,
-          timeoutUntilRevertsToInactiveInMs
+          timeoutUntilRevertsToInactiveInMs,
         );
       }
 
@@ -65,7 +65,7 @@ const escortAsync: EscortAsyncWrapper = (WrappedComponent, config?: any) => {
 
           if (!this.shouldRequestsReturn) return;
           this.setState(cur => ({
-            fetchStatus: { ...cur.fetchStatus, [requestName]: FETCH_STATUS.SUCCESS }
+            fetchStatus: { ...cur.fetchStatus, [requestName]: FETCH_STATUS.SUCCESS },
           }));
 
           // setTimeout so we can render the success component b4 returning the data
@@ -73,11 +73,10 @@ const escortAsync: EscortAsyncWrapper = (WrappedComponent, config?: any) => {
             if (!this.shouldRequestsReturn) return;
             resolve(response);
           }, timeoutUntilRevertsToInactiveInMs);
-        }
-        catch (e) {
+        } catch (e) {
           if (!this.shouldRequestsReturn) return;
           this.setState(cur => ({
-            fetchStatus: { ...cur.fetchStatus, [requestName]: FETCH_STATUS.FAIL }
+            fetchStatus: { ...cur.fetchStatus, [requestName]: FETCH_STATUS.FAIL },
           }));
           reject(e);
         }
@@ -90,15 +89,13 @@ const escortAsync: EscortAsyncWrapper = (WrappedComponent, config?: any) => {
             fetchStatus: {
               ...cur.fetchStatus,
               [requestName]: FETCH_STATUS.INACTIVE,
-            }
+            },
           }));
         }, timeoutUntilRevertsToInactiveInMs);
       }));
     }
 
     render() {
-      // const { fetchStatus } = this.state;
-
       const escort: EscortPropTypes = {
         makeRequest: this.makeRequest,
         fetchStatus: this.fetchStatus,
