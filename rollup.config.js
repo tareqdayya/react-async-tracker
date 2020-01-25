@@ -39,6 +39,8 @@ export default {
       clean: true
     }),
     commonjs(),
-    (process.env.NODE_ENV === 'production' && terser()),
+    (process.env.NODE_ENV === 'production' && terser({
+      compress: { drop_console: true }
+    })),
   ]
 }

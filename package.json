@@ -19,7 +19,7 @@
     "clean": "rm -rf dist && mkdir dist",
     "test": "cross-env CI=1 react-scripts-ts test --env=jsdom",
     "test:watch": "react-scripts-ts test --env=jsdom",
-    "build": "rollup -c",
+    "build": "NODE_ENV=production rollup -c",
     "start": "rollup -c -w",
     "prepare": "yarn run clean && yarn run build",
     "predeploy": "cd example && yarn install && yarn run build",
