@@ -1,6 +1,6 @@
 {
   "name": "react-async-tracker",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "react wrapper (HOC) for tracking the status of async requests.",
   "author": "@tareqdayya",
   "license": "MIT",
