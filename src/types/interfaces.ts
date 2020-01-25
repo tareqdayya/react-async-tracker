@@ -1,6 +1,13 @@
-interface FetchStatus { [name: string]: FetchStatus }
+// import { EscortAsyncState } from './../functions/escortAsync/escortAsync';
+import { FetchStatusFunction } from './types';
 
-export interface AsyncTrackProp {
+export interface EscortPropTypes {
   makeRequest: Function;
-  fetchStatus: FetchStatus;
+  fetchStatus: FetchStatusFunction;
+  cancelRequests: Function;
+}
+
+export interface AnyProp {
+  escort: EscortPropTypes;
+  [prop: string]: any;
 }
